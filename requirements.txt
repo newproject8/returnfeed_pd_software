@@ -1,5 +1,4 @@
 PyQt6
 numpy
 pyqtgraph
-NDIlib-python
 opencv-python
