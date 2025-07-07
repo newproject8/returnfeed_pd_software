@@ -7,6 +7,9 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, pyqtSlot, QTimer
 from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtCore import QUrl
+from PyQt6.QtGui import QDesktopServices
 
 from ndi_app.ndi_core.ndi_process_manager import NDIProcessManager
 from ndi_app.ui.widgets import VideoDisplayWidget
@@ -319,6 +322,25 @@ class MainWindow(QMainWindow):
         QMessageBox.about(self, f"정보 {NDI_APP_NAME}",
                           f"{NDI_APP_NAME} 버전 {NDI_APP_VERSION}\n\n"
                           "PyQtGraph와 NDI-Python을 사용한 간단한 NDI 비디오 미리보기 도구입니다.")
+
+    def show_update_dialog(self, update_info):
+        version = update_info.get("version")
+        notes = update_info.get("notes")
+        url = update_info.get("url")
+
+        dialog = QMessageBox(self)
+        dialog.setIcon(QMessageBox.Icon.Information)
+        dialog.setWindowTitle("Update Available")
+        dialog.setText(f"A new version ({version}) is available!")
+        dialog.setInformativeText(f"<b>Release Notes:</b><br><pre>{notes}</pre><br>Would you like to go to the download page?")
+        
+        update_button = dialog.addButton("Update Now", QMessageBox.ButtonRole.YesRole)
+        later_button = dialog.addButton("Later", QMessageBox.ButtonRole.NoRole)
+        
+        dialog.exec()
+
+        if dialog.clickedButton() == update_button:
+            QDesktopServices.openUrl(QUrl(url))
 
     # FPS 표시는 이제 VideoDisplayWidget의 오버레이로 처리됨
     # 별도의 FPS 업데이트 메서드는 제거됨

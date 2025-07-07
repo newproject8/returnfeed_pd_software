@@ -2,6 +2,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMessageBox
 import os # os 모듈 import 추가
+from ndi_app.updater import check_for_updates
 
 # --- NDI DLL 경로 추가 시작 ---
 NDI_SDK_DLL_PATH = r"C:\Program Files\NDI\NDI 6 SDK\Bin\x64" # 실제 DLL 파일이 있는 경로
@@ -43,6 +44,10 @@ def main():
     app = QApplication(sys.argv)
     main_win = MainWindow()
     main_win.show()
+# Check for updates in the background
+    update_info = check_for_updates()
+    if update_info:
+        main_win.show_update_dialog(update_info)
 
     exit_code = app.exec()
 

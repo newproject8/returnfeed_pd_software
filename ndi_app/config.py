@@ -1,3 +1,4 @@
+CURRENT_VERSION = "1.0.0"
 # ndi_app/config.py
 
 NDI_APP_NAME = "NDI Preview Tool"
