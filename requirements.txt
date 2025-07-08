@@ -1,6 +1,0 @@
-PyQt6
-numpy
-pyqtgraph
-opencv-python
-
-requests

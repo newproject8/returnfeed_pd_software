@@ -198,3 +198,8 @@ test_software/
 # Any personal configuration files
 config.local.py
 settings.local.py
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
