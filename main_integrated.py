@@ -31,8 +31,11 @@ try:
     if not ndi.initialize():
         raise RuntimeError("NDIlib 초기화 실패")
     logger.info("NDIlib 초기화 성공")
+except ImportError:
+    logger.warning("NDIlib를 찾을 수 없음 - 시뮬레이터 모드로 실행")
+    # 시뮬레이터는 ndi_manager에서 자동으로 로드됨
 except Exception as e:
-    logger.error(f"NDIlib 초기화 오류: {e}")
+    logger.error(f"NDI 초기화 오류: {e}")
     # 계속 진행 (NDI 없이도 다른 기능 사용 가능)
 
 # 메인 윈도우 임포트
@@ -77,9 +80,16 @@ def main():
         main_window = MainWindow()
         
         # 저장된 윈도우 위치/크기 복원
-        geometry = settings.get('ui.window_geometry')
-        if geometry:
-            main_window.restoreGeometry(geometry)
+        geometry_str = settings.get('ui.window_geometry')
+        if geometry_str:
+            try:
+                import base64
+                from PyQt6.QtCore import QByteArray
+                geometry_data = base64.b64decode(geometry_str)
+                geometry = QByteArray(geometry_data)
+                main_window.restoreGeometry(geometry)
+            except Exception as e:
+                logger.debug(f"윈도우 geometry 복원 실패: {e}")
         
         # 마지막 탭 복원
         last_tab = settings.get('ui.last_tab', 0)
@@ -99,10 +109,12 @@ def main():
         
         # NDI 정리
         try:
-            ndi.destroy()
-            logger.info("NDIlib 정리 완료")
-        except:
-            pass
+            # ndi가 임포트되어 있는지 확인
+            if 'ndi' in locals() or 'ndi' in globals():
+                ndi.destroy()
+                logger.info("NDI 정리 완료")
+        except Exception as e:
+            logger.debug(f"NDI 정리 건너뜀: {e}")
             
         logger.info("애플리케이션 정상 종료")
         sys.exit(exit_code)

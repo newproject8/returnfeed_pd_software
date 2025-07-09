@@ -57,12 +57,26 @@ class WebSocketClient(QThread):
         """메인 연결 루프"""
         while self.running:
             try:
+                logger.info(f"WebSocket 연결 시도: {self.server_url}")
                 self.connection_status_changed.emit("서버 연결 시도...", "orange")
+                
+                # 연결 옵션 설정
+                connect_kwargs = {
+                    'ping_interval': 20,
+                    'ping_timeout': 20,
+                }
+                
+                # SSL 관련 설정 (ws://는 SSL 불필요)
+                if self.server_url.startswith('wss://'):
+                    import ssl
+                    ssl_context = ssl.create_default_context()
+                    ssl_context.check_hostname = False
+                    ssl_context.verify_mode = ssl.CERT_NONE
+                    connect_kwargs['ssl'] = ssl_context
                 
                 async with websockets.connect(
                     self.server_url,
-                    ping_interval=20,
-                    ping_timeout=20
+                    **connect_kwargs
                 ) as websocket:
                     self.websocket = websocket
                     self.connected.emit()

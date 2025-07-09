@@ -143,7 +143,15 @@ class Settings:
         
     def update_window_geometry(self, geometry):
         """윈도우 위치/크기 업데이트"""
-        self.set('ui.window_geometry', geometry)
+        # QByteArray를 base64 문자열로 변환하여 저장
+        if geometry is not None:
+            try:
+                import base64
+                geometry_str = base64.b64encode(geometry.data()).decode('utf-8')
+                self.set('ui.window_geometry', geometry_str)
+            except Exception as e:
+                logger.error(f"윈도우 geometry 저장 실패: {e}")
+                self.set('ui.window_geometry', None)
         
     def update_last_tab(self, index):
         """마지막 탭 인덱스 업데이트"""

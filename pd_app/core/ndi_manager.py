@@ -43,7 +43,13 @@ try:
     NDI_AVAILABLE = True
 except ImportError:
     NDI_AVAILABLE = False
-    logging.warning("NDIlib not available")
+    logging.warning("NDIlib not available - using simulator")
+    try:
+        from . import ndi_simulator as ndi
+        NDI_AVAILABLE = True  # 시뮬레이터 사용 가능
+        logging.info("NDI 시뮬레이터 모드 활성화")
+    except ImportError:
+        logging.error("NDI 시뮬레이터도 로드 실패")
 
 logger = logging.getLogger(__name__)
 
