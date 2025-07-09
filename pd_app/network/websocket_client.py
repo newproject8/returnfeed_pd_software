@@ -23,9 +23,11 @@ class WebSocketClient(QThread):
     error_occurred = pyqtSignal(str)
     connection_status_changed = pyqtSignal(str, str)
     
-    def __init__(self, server_url="wss://returnfeed.net/ws/"):
+    def __init__(self, server_url=None):
         super().__init__()
-        self.server_url = server_url
+        # 기본값을 constants에서 가져오기
+        from ..config.constants import DEFAULT_WEBSOCKET_URL
+        self.server_url = server_url if server_url else DEFAULT_WEBSOCKET_URL
         self.websocket = None
         self.running = False
         self.message_queue = None

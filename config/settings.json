@@ -4,7 +4,7 @@
         "auto_update": true
     },
     "server": {
-        "websocket_url": "wss://returnfeed.net/ws/",
+        "websocket_url": "ws://returnfeed.net:8765",
         "media_mtx_server": "returnfeed.net",
         "media_mtx_srt_port": 8890,
         "media_mtx_api_port": 9997

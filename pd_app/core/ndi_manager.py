@@ -168,9 +168,27 @@ class NDIManager(QObject):
                     sources = ndi.find_get_current_sources(self.finder)
                     if sources:
                         source_list = []
-                        for i in range(sources.no_sources):
-                            source_name = sources.sources[i].ndi_name.decode('utf-8')
-                            source_list.append(source_name)
+                        # NDIlib C-struct 반환값과 list 반환값 모두 처리
+                        try:
+                            if hasattr(sources, 'no_sources'):
+                                # C-struct 형태의 반환값
+                                for i in range(sources.no_sources):
+                                    source_name = sources.sources[i].ndi_name.decode('utf-8')
+                                    source_list.append(source_name)
+                            elif isinstance(sources, list):
+                                # Python list 형태의 반환값
+                                for source in sources:
+                                    if hasattr(source, 'ndi_name'):
+                                        source_name = source.ndi_name.decode('utf-8')
+                                    else:
+                                        source_name = str(source)
+                                    source_list.append(source_name)
+                            else:
+                                logger.warning(f"알 수 없는 sources 타입: {type(sources)}")
+                        except AttributeError as ae:
+                            logger.error(f"NDI sources 속성 오류: {ae}")
+                        except Exception as e:
+                            logger.error(f"NDI sources 처리 오류: {e}")
                         
                         if source_list != self.sources:
                             self.sources = source_list
