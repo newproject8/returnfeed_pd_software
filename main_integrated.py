@@ -54,14 +54,21 @@ def main():
         platform_info = get_platform_info()
         logger.info(f"플랫폼 정보: {platform_info}")
         
+        # 고DPI 스케일링 설정 (PyQt6에서는 기본적으로 활성화됨)
+        # PyQt5에서만 필요한 설정이므로 PyQt6에서는 건너뜀
+        try:
+            # Qt6에서는 이미 High DPI가 기본 활성화되어 있음
+            if hasattr(Qt, 'HighDpiScaleFactorRoundingPolicy'):
+                QApplication.setHighDpiScaleFactorRoundingPolicy(
+                    Qt.HighDpiScaleFactorRoundingPolicy.PassThrough
+                )
+        except Exception as e:
+            logger.debug(f"High DPI 설정 건너뜀: {e}")
+        
         # Qt 애플리케이션 생성
         app = QApplication(sys.argv)
         app.setApplicationName("PD 통합 소프트웨어")
         app.setOrganizationName("PD Software Team")
-        
-        # 고DPI 스케일링 설정
-        app.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling, True)
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps, True)
         
         # 설정 로드
         settings = Settings()
