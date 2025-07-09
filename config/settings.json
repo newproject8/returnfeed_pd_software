@@ -1,0 +1,31 @@
+{
+    "app": {
+        "version": "1.0.0",
+        "auto_update": true
+    },
+    "server": {
+        "websocket_url": "wss://returnfeed.net/ws/",
+        "media_mtx_server": "returnfeed.net",
+        "media_mtx_srt_port": 8890,
+        "media_mtx_api_port": 9997
+    },
+    "vmix": {
+        "default_ip": "127.0.0.1",
+        "default_http_port": 8088,
+        "default_tcp_port": 8099
+    },
+    "streaming": {
+        "default_bitrate": "2M",
+        "default_fps": 30,
+        "preset": "ultrafast",
+        "tune": "zerolatency"
+    },
+    "ui": {
+        "theme": "default",
+        "window_geometry": null,
+        "last_tab": 0
+    },
+    "test": {
+        "value": "test_data_1752030422"
+    }
+}
