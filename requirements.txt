@@ -1,0 +1,12 @@
+PyQt6
+numpy
+pyqtgraph
+opencv-python
+requests
+websockets
+ffmpeg-python
+asyncio
+aiofiles
+pybind11
+psutil
+# ndi-python

@@ -1,0 +1,22 @@
+{
+  "NDIDiscovery": {
+    "auto_refresh": true,
+    "refresh_interval": 2000,
+    "show_addresses": true
+  },
+  "vMixTally": {
+    "vmix_ip": "127.0.0.1",
+    "vmix_http_port": 8088,
+    "vmix_tcp_port": 8099,
+    "relay_server": "localhost",
+    "relay_port": 8765,
+    "use_ssl": false
+  },
+  "SRT": {
+    "media_mtx_server": "localhost",
+    "srt_port": 8890,
+    "last_bitrate": "2M",
+    "last_fps": 30,
+    "auto_resume_preview": true
+  }
+}

@@ -1,0 +1,48 @@
+returnfeed_unified/
+│
+├── main.py                          # 애플리케이션 진입점
+├── run.bat                          # Windows 실행 스크립트
+├── requirements.txt                 # Python 패키지 의존성
+├── README.md                        # 프로젝트 설명서
+├── CLAUDE.md                        # 개발 지침
+│
+├── doc/                             # 문서
+│   ├── INTEGRATION_PLAN.md         # 통합 계획
+│   ├── PROJECT_SUMMARY.md          # 프로젝트 요약
+│   ├── PYQT5_TO_PYQT6_MIGRATION.md # PyQt 마이그레이션 가이드
+│   ├── FIXED_IMPORT_ERROR.md       # Import 에러 수정 문서
+│   ├── METACLASS_CONFLICT_FIX.md   # Metaclass 충돌 수정 문서
+│   └── ALL_ERRORS_FIXED.md         # 모든 에러 수정 완료 문서
+│
+├── modules/                         # 모듈 시스템
+│   ├── __init__.py                 # BaseModule, QObjectBaseModule, ModuleManager
+│   │
+│   ├── ndi_module/                 # NDI 모듈
+│   │   ├── __init__.py
+│   │   ├── ndi_module.py           # NDIModule 메인 클래스
+│   │   ├── ndi_manager.py          # NDI 통신 관리
+│   │   └── ndi_widget.py           # NDI UI 위젯
+│   │
+│   └── vmix_module/                # vMix 모듈
+│       ├── __init__.py
+│       ├── vmix_module.py          # vMixModule 메인 클래스
+│       ├── vmix_manager.py         # vMix 통신 관리
+│       └── vmix_widget.py          # vMix UI 위젯
+│
+├── ui/                             # UI 컴포넌트
+│   ├── __init__.py
+│   └── main_window.py              # 통합 메인 윈도우
+│
+├── utils/                          # 유틸리티
+│   ├── __init__.py
+│   └── logger.py                   # 로깅 설정
+│
+├── config/                         # 설정
+│   └── settings.json               # 기본 설정 파일
+│
+├── logs/                           # 로그 파일 (자동 생성)
+│
+└── test_*.py                       # 테스트 스크립트들
+    ├── test_imports.py             # Import 테스트
+    ├── test_startup.py             # 스타트업 테스트
+    └── test_metaclass_fix.py       # Metaclass 수정 테스트

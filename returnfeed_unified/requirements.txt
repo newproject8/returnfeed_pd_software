@@ -1,0 +1,26 @@
+# ReturnFeed Unified Requirements
+
+# GUI Framework
+PyQt6>=6.4.0
+PyQt6-Qt6>=6.4.0
+
+# WebSocket Communication
+websockets>=11.0
+aiohttp>=3.8.0
+
+# HTTP Requests
+requests>=2.28.0
+
+# Image Processing for NDI video
+numpy>=1.21.0
+Pillow>=9.0.0
+
+# NDI (별도 설치 필요)
+# NDI SDK: https://www.ndi.tv/sdk/
+ndi-python>=1.1.0
+
+# Optional for development
+black>=23.0.0
+pylint>=2.15.0
+mypy>=0.991
+ffmpeg-python

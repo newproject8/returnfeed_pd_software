@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReturnFeed PD Software</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 580px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            color: #5a67d8;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #5a67d8;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #5a67d8, #667eea);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(90, 103, 216, 0.3);
+        }
+
+        .btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn.secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn.secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .status.connected {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .status.disconnected {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+
+        .status.connecting {
+            background: #fefcbf;
+            color: #744210;
+            border: 1px solid #f6e05e;
+        }
+
+        .tally-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tally-box {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .tally-program {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #fc8181;
+        }
+
+        .tally-program.active {
+            background: #f56565;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        .tally-preview {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #9ae6b4;
+        }
+
+        .tally-preview.active {
+            background: #48bb78;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .inputs-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        .input-item {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: #f7fafc;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .input-item.active {
+            background: #bee3f8;
+            border-left: 4px solid #3182ce;
+        }
+
+        .log-area {
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ReturnFeed PD</h1>
+            <p>vMix 탈리 시스템 연동 소프트웨어</p>
+        </div>
+
+        <!-- vMix 연결 설정 -->
+        <div class="card">
+            <h2>🎥 vMix 연결</h2>
+            <div id="vmix-status" class="status disconnected">연결 안됨</div>
+            
+            <div class="form-group">
+                <label for="vmix-host">vMix IP 주소:</label>
+                <input type="text" id="vmix-host" value="127.0.0.1" placeholder="예: 192.168.1.100">
+            </div>
+            
+            <div class="form-group">
+                <label for="vmix-port">vMix TCP 포트:</label>
+                <input type="number" id="vmix-port" value="8099" placeholder="8099">
+            </div>
+            
+            <button id="connect-vmix" class="btn">vMix 연결</button>
+            <button id="disconnect-vmix" class="btn secondary" disabled>연결 해제</button>
+        </div>
+
+        <!-- 릴레이 서버 설정 -->
+        <div class="card">
+            <h2>🌐 RelayRelay 서버 연결</h2>
+            <div id="relay-status" class="status disconnected">연결 안됨</div>
+            
+            <div class="form-group">
+                <label for="relay-url">릴레이 서버 URL:</label>
+                <input type="text" id="relay-url" value="wss://returnfeed.net/ws" placeholder="wss://returnfeed.net/ws">
+            </div>
+            
+            <div class="form-group">
+                <label for="session-id">세션 ID:</label>
+                <input type="text" id="session-id" placeholder="예: pd_550e8400...">
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="auto-connect" checked>
+                <label for="auto-connect">시작 시 자동 연결</label>
+            </div>
+            
+            <button id="connect-relay" class="btn">릴레이 연결</button>
+            <button id="disconnect-relay" class="btn secondary" disabled>연결 해제</button>
+        </div>
+
+        <!-- 탈리 상태 표시 -->
+        <div class="card">
+            <h2>📺 탈리 상태</h2>
+            <div class="tally-display">
+                <div id="tally-program" class="tally-box tally-program">
+                    PROGRAM<br>
+                    <span id="program-input">-</span>
+                </div>
+                <div id="tally-preview" class="tally-box tally-preview">
+                    PREVIEW<br>
+                    <span id="preview-input">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카메라 입력 목록 -->
+        <div class="card">
+            <h2>🎬 카메라 입력</h2>
+            <div>총 <span id="inputs-count">0</span>개 카메라</div>
+            <div id="inputs-list" class="inputs-list">
+                <div class="input-item">카메라를 찾는 중...</div>
+            </div>
+        </div>
+
+        <!-- 로그 -->
+        <div class="card">
+            <h2>📝 로그</h2>
+            <div id="log-area" class="log-area"></div>
+            <button id="clear-log" class="btn secondary" style="margin-top: 10px;">로그 지우기</button>
+        </div>
+    </div>
+
+    <script>
+        // 상태 변수
+        let vmixConnected = false;
+        let relayConnected = false;
+        let currentTally = { program: null, preview: null };
+        let currentInputs = {};
+
+        // DOM 요소
+        const elements = {
+            vmixStatus: document.getElementById('vmix-status'),
+            relayStatus: document.getElementById('relay-status'),
+            vmixHost: document.getElementById('vmix-host'),
+            vmixPort: document.getElementById('vmix-port'),
+            relayUrl: document.getElementById('relay-url'),
+            sessionId: document.getElementById('session-id'),
+            autoConnect: document.getElementById('auto-connect'),
+            connectVmix: document.getElementById('connect-vmix'),
+            disconnectVmix: document.getElementById('disconnect-vmix'),
+            connectRelay: document.getElementById('connect-relay'),
+            disconnectRelay: document.getElementById('disconnect-relay'),
+            programInput: document.getElementById('program-input'),
+            previewInput: document.getElementById('preview-input'),
+            tallyProgram: document.getElementById('tally-program'),
+            tallyPreview: document.getElementById('tally-preview'),
+            inputsList: document.getElementById('inputs-list'),
+            inputsCount: document.getElementById('inputs-count'),
+            logArea: document.getElementById('log-area'),
+            clearLog: document.getElementById('clear-log')
+        };
+
+        // 로그 함수
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            elements.logArea.textContent += `[${timestamp}] ${message}\n`;
+            elements.logArea.scrollTop = elements.logArea.scrollHeight;
+            window.electronAPI.log(message);
+        }
+
+        // 상태 업데이트 함수
+        function updateVmixStatus(connected, message = null) {
+            vmixConnected = connected;
+            elements.vmixStatus.textContent = connected ? '연결됨' : (message || '연결 안됨');
+            elements.vmixStatus.className = `status ${connected ? 'connected' : 'disconnected'}`;
+            elements.connectVmix.disabled = connected;
+            elements.disconnectVmix.disabled = !connected;
+        }
+
+        function updateRelayStatus(connected, message = null) {
+            relayConnected = connected;
+            elements.relayStatus.textContent = connected ? '연결됨' : (message || '연결 안됨');
+            elements.relayStatus.className = `status ${connected ? 'connected' : 'disconnected'}`;
+            elements.connectRelay.disabled = connected;
+            elements.disconnectRelay.disabled = !connected;
+        }
+
+        function updateTallyDisplay(tallyData) {
+            currentTally = tallyData;
+            
+            // Program 상태 업데이트
+            elements.programInput.textContent = tallyData.program || '-';
+            elements.tallyProgram.classList.toggle('active', !!tallyData.program);
+            
+            // Preview 상태 업데이트
+            elements.previewInput.textContent = tallyData.preview || '-';
+            elements.tallyPreview.classList.toggle('active', !!tallyData.preview);
+            
+            log(`Tally: PGM=${tallyData.program || 'OFF'}, PVW=${tallyData.preview || 'OFF'}`);
+        }
+
+        function updateInputsList(inputsData) {
+            currentInputs = inputsData.inputs || {};
+            const inputCount = Object.keys(currentInputs).length;
+            
+            elements.inputsCount.textContent = inputCount;
+            
+            if (inputCount === 0) {
+                elements.inputsList.innerHTML = '<div class="input-item">카메라가 감지되지 않았습니다</div>';
+                return;
+            }
+            
+            elements.inputsList.innerHTML = '';
+            
+            Object.entries(currentInputs).forEach(([number, input]) => {
+                const div = document.createElement('div');
+                div.className = 'input-item';
+                if (input.state === 'Running') {
+                    div.classList.add('active');
+                }
+                
+                div.innerHTML = `
+                    <strong>Input ${number}:</strong> ${input.title || input.name || 'Unknown'}
+                    <br><small>${input.type || 'Video'} - ${input.state || 'Paused'}</small>
+                `;
+                
+                elements.inputsList.appendChild(div);
+            });
+            
+            log(`카메라 입력 업데이트: ${inputCount}개`);
+        }
+
+        // 이벤트 리스너
+        elements.connectVmix.addEventListener('click', async () => {
+            const host = elements.vmixHost.value.trim();
+            const port = parseInt(elements.vmixPort.value);
+            
+            if (!host || !port) {
+                alert('vMix IP 주소와 포트를 입력해주세요.');
+                return;
+            }
+            
+            updateVmixStatus(false, '연결 중...');
+            elements.vmixStatus.className = 'status connecting';
+            
+            try {
+                const result = await window.electronAPI.connectVmix({ host, port });
+                if (result.success) {
+                    updateVmixStatus(true);
+                    log(`vMix 연결 성공: ${host}:${port}`);
+                } else {
+                    updateVmixStatus(false, result.error || '연결 실패');
+                    log(`vMix 연결 실패: ${result.error}`);
+                }
+            } catch (error) {
+                updateVmixStatus(false, '연결 오류');
+                log(`vMix 연결 오류: ${error.message}`);
+            }
+        });
+
+        elements.disconnectVmix.addEventListener('click', async () => {
+            try {
+                await window.electronAPI.disconnectVmix();
+                updateVmixStatus(false);
+                log('vMix 연결 해제');
+            } catch (error) {
+                log(`vMix 연결 해제 오류: ${error.message}`);
+            }
+        });
+
+        elements.connectRelay.addEventListener('click', async () => {
+            const url = elements.relayUrl.value.trim();
+            const sessionId = elements.sessionId.value.trim();
+            
+            if (!url || !sessionId) {
+                alert('릴레이 서버 URL과 세션 ID를 입력해주세요.');
+                return;
+            }
+            
+            updateRelayStatus(false, '연결 중...');
+            elements.relayStatus.className = 'status connecting';
+            
+            try {
+                const result = await window.electronAPI.connectRelay({ url, sessionId });
+                if (result.success) {
+                    updateRelayStatus(true);
+                    log(`릴레이 연결 성공: ${sessionId}`);
+                } else {
+                    updateRelayStatus(false, result.error || '연결 실패');
+                    log(`릴레이 연결 실패: ${result.error}`);
+                }
+            } catch (error) {
+                updateRelayStatus(false, '연결 오류');
+                log(`릴레이 연결 오류: ${error.message}`);
+            }
+        });
+
+        elements.disconnectRelay.addEventListener('click', async () => {
+            try {
+                await window.electronAPI.disconnectRelay();
+                updateRelayStatus(false);
+                log('릴레이 연결 해제');
+            } catch (error) {
+                log(`릴레이 연결 해제 오류: ${error.message}`);
+            }
+        });
+
+        elements.clearLog.addEventListener('click', () => {
+            elements.logArea.textContent = '';
+        });
+
+        // Electron API 이벤트 리스너
+        window.electronAPI.onSettingsLoaded((event, settings) => {
+            elements.vmixHost.value = settings.vmixHost || '127.0.0.1';
+            elements.vmixPort.value = settings.vmixPort || 8099;
+            elements.relayUrl.value = settings.relayUrl || 'wss://returnfeed.net/ws';
+            elements.sessionId.value = settings.sessionId || '';
+            elements.autoConnect.checked = settings.autoConnect || false;
+            
+            log('설정 로드 완료');
+        });
+
+        window.electronAPI.onTallyData((event, tallyData) => {
+            updateTallyDisplay(tallyData);
+        });
+
+        window.electronAPI.onInputsData((event, inputsData) => {
+            updateInputsList(inputsData);
+        });
+
+        window.electronAPI.onVmixError((event, error) => {
+            log(`vMix 오류: ${error}`);
+            updateVmixStatus(false, '오류 발생');
+        });
+
+        window.electronAPI.onVmixDisconnected(() => {
+            log('vMix 연결이 끊어졌습니다');
+            updateVmixStatus(false, '연결 끊어짐');
+        });
+
+        window.electronAPI.onRelayConnected(() => {
+            log('릴레이 서버 연결됨');
+            updateRelayStatus(true);
+        });
+
+        window.electronAPI.onRelayError((event, error) => {
+            log(`릴레이 오류: ${error}`);
+            updateRelayStatus(false, '오류 발생');
+        });
+
+        window.electronAPI.onRelayDisconnected(() => {
+            log('릴레이 서버 연결이 끊어졌습니다');
+            updateRelayStatus(false, '연결 끊어짐');
+        });
+
+        // 설정 저장
+        function saveSettings() {
+            const settings = {
+                vmixHost: elements.vmixHost.value,
+                vmixPort: parseInt(elements.vmixPort.value),
+                relayUrl: elements.relayUrl.value,
+                sessionId: elements.sessionId.value,
+                autoConnect: elements.autoConnect.checked
+            };
+            
+            window.electronAPI.saveSettings(settings);
+        }
+
+        // 설정 변경 시 자동 저장
+        [elements.vmixHost, elements.vmixPort, elements.relayUrl, elements.sessionId, elements.autoConnect]
+            .forEach(element => {
+                element.addEventListener('change', saveSettings);
+            });
+
+        // 초기화
+        log('ReturnFeed PD Software 시작');
+        log('vMix와 릴레이 서버 설정을 확인하고 연결하세요');
+    </script>
+</body>
+</html>

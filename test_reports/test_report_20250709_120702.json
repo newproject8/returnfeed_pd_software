@@ -1,0 +1,240 @@
+{
+  "test_date": "2025-07-09T12:07:02.406076",
+  "system_info": {
+    "platform": "Linux",
+    "python_version": "3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]"
+  },
+  "summary": {
+    "total": 34,
+    "passed": 12,
+    "failed": 22,
+    "success_rate": 35.294117647058826
+  },
+  "results": [
+    {
+      "test": "Python 버전",
+      "success": true,
+      "message": "현재: 3.12.3",
+      "timestamp": "2025-07-09T12:06:56.589499"
+    },
+    {
+      "test": "플랫폼",
+      "success": true,
+      "message": "Linux 5.15.167.4-microsoft-standard-WSL2",
+      "timestamp": "2025-07-09T12:06:56.589526"
+    },
+    {
+      "test": "PyQt6 임포트",
+      "success": false,
+      "message": "No module named 'PyQt6'",
+      "timestamp": "2025-07-09T12:06:56.589868"
+    },
+    {
+      "test": "numpy 임포트",
+      "success": false,
+      "message": "No module named 'numpy'",
+      "timestamp": "2025-07-09T12:06:56.590202"
+    },
+    {
+      "test": "pyqtgraph 임포트",
+      "success": false,
+      "message": "No module named 'pyqtgraph'",
+      "timestamp": "2025-07-09T12:06:56.590479"
+    },
+    {
+      "test": "opencv-python 임포트",
+      "success": false,
+      "message": "No module named 'cv2'",
+      "timestamp": "2025-07-09T12:06:56.590711"
+    },
+    {
+      "test": "requests 임포트",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:06:56.674089"
+    },
+    {
+      "test": "websockets 임포트",
+      "success": false,
+      "message": "No module named 'websockets'",
+      "timestamp": "2025-07-09T12:06:56.674366"
+    },
+    {
+      "test": "ffmpeg-python 임포트",
+      "success": false,
+      "message": "No module named 'ffmpeg'",
+      "timestamp": "2025-07-09T12:06:56.674671"
+    },
+    {
+      "test": "asyncio 임포트",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:06:56.674679"
+    },
+    {
+      "test": "pd_app",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:06:56.689444"
+    },
+    {
+      "test": "pd_app.core.ndi_manager",
+      "success": false,
+      "message": "No module named 'numpy'",
+      "timestamp": "2025-07-09T12:06:56.736700"
+    },
+    {
+      "test": "pd_app.core.vmix_manager",
+      "success": false,
+      "message": "No module named 'numpy'",
+      "timestamp": "2025-07-09T12:06:56.753765"
+    },
+    {
+      "test": "pd_app.core.srt_manager",
+      "success": false,
+      "message": "No module named 'numpy'",
+      "timestamp": "2025-07-09T12:06:56.770110"
+    },
+    {
+      "test": "pd_app.core.auth_manager",
+      "success": false,
+      "message": "No module named 'numpy'",
+      "timestamp": "2025-07-09T12:06:56.785028"
+    },
+    {
+      "test": "pd_app.ui.main_window",
+      "success": false,
+      "message": "No module named 'PyQt6'",
+      "timestamp": "2025-07-09T12:06:56.822046"
+    },
+    {
+      "test": "pd_app.ui.ndi_widget",
+      "success": false,
+      "message": "No module named 'PyQt6'",
+      "timestamp": "2025-07-09T12:06:56.836887"
+    },
+    {
+      "test": "pd_app.ui.tally_widget",
+      "success": false,
+      "message": "No module named 'PyQt6'",
+      "timestamp": "2025-07-09T12:06:56.853717"
+    },
+    {
+      "test": "pd_app.ui.srt_widget",
+      "success": false,
+      "message": "No module named 'PyQt6'",
+      "timestamp": "2025-07-09T12:06:56.869014"
+    },
+    {
+      "test": "pd_app.ui.login_widget",
+      "success": false,
+      "message": "No module named 'PyQt6'",
+      "timestamp": "2025-07-09T12:06:56.888406"
+    },
+    {
+      "test": "pd_app.network.websocket_client",
+      "success": false,
+      "message": "No module named 'websockets'",
+      "timestamp": "2025-07-09T12:06:56.927944"
+    },
+    {
+      "test": "pd_app.network.tcp_client",
+      "success": false,
+      "message": "No module named 'websockets'",
+      "timestamp": "2025-07-09T12:06:56.942789"
+    },
+    {
+      "test": "pd_app.config.settings",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:06:56.999220"
+    },
+    {
+      "test": "pd_app.config.constants",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:06:56.999232"
+    },
+    {
+      "test": "pd_app.utils.logger",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:06:57.067737"
+    },
+    {
+      "test": "pd_app.utils.helpers",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:06:57.067752"
+    },
+    {
+      "test": "NDI 기능",
+      "success": false,
+      "message": "No module named 'NDIlib'",
+      "timestamp": "2025-07-09T12:06:57.067973"
+    },
+    {
+      "test": "WebSocket",
+      "success": false,
+      "message": "websockets 모듈 없음",
+      "timestamp": "2025-07-09T12:06:57.068488"
+    },
+    {
+      "test": "MediaMTX API 연결",
+      "success": false,
+      "message": "HTTPConnectionPool(host='returnfeed.net', port=9997): Max retries exceeded with url: /v3/paths/list (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7ff3450105f0>, 'Connection to returnfeed.net timed out. (connect timeout=5)'))",
+      "timestamp": "2025-07-09T12:07:02.218240"
+    },
+    {
+      "test": "FFmpeg",
+      "success": false,
+      "message": "FFmpeg가 설치되지 않음",
+      "timestamp": "2025-07-09T12:07:02.369119"
+    },
+    {
+      "test": "Settings 객체 생성",
+      "success": true,
+      "message": "",
+      "timestamp": "2025-07-09T12:07:02.374640"
+    },
+    {
+      "test": "설정 읽기/쓰기",
+      "success": true,
+      "message": "저장: test_data_1752030422, 읽기: test_data_1752030422",
+      "timestamp": "2025-07-09T12:07:02.384638"
+    },
+    {
+      "test": "설정 파일",
+      "success": true,
+      "message": "config/settings.json",
+      "timestamp": "2025-07-09T12:07:02.385913"
+    },
+    {
+      "test": "인증 시스템",
+      "success": false,
+      "message": "No module named 'numpy'",
+      "timestamp": "2025-07-09T12:07:02.405967"
+    }
+  ],
+  "errors": [
+    "PyQt6: No module named 'PyQt6'",
+    "numpy: No module named 'numpy'",
+    "pyqtgraph: No module named 'pyqtgraph'",
+    "opencv-python: No module named 'cv2'",
+    "websockets: No module named 'websockets'",
+    "ffmpeg-python: No module named 'ffmpeg'",
+    "pd_app.core.ndi_manager: No module named 'numpy'",
+    "pd_app.core.vmix_manager: No module named 'numpy'",
+    "pd_app.core.srt_manager: No module named 'numpy'",
+    "pd_app.core.auth_manager: No module named 'numpy'",
+    "pd_app.ui.main_window: No module named 'PyQt6'",
+    "pd_app.ui.ndi_widget: No module named 'PyQt6'",
+    "pd_app.ui.tally_widget: No module named 'PyQt6'",
+    "pd_app.ui.srt_widget: No module named 'PyQt6'",
+    "pd_app.ui.login_widget: No module named 'PyQt6'",
+    "pd_app.network.websocket_client: No module named 'websockets'",
+    "pd_app.network.tcp_client: No module named 'websockets'",
+    "NDI: No module named 'NDIlib'",
+    "Auth: No module named 'numpy'"
+  ]
+}

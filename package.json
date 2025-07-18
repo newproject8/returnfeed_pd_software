@@ -1,0 +1,49 @@
+{
+  "name": "returnfeed-pd-software",
+  "version": "1.0.0",
+  "description": "ReturnFeed PD Software - vMix Tally Bridge",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never"
+  },
+  "keywords": ["returnfeed", "vmix", "tally", "broadcast"],
+  "author": "ReturnFeed Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "ws": "^8.16.0",
+    "xml2js": "^0.6.2",
+    "electron-store": "^8.1.0"
+  },
+  "build": {
+    "productName": "ReturnFeed PD",
+    "appId": "com.returnfeed.pd",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  }
+}

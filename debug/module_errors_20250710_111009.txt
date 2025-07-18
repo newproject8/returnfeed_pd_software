@@ -1,0 +1,28 @@
+PD 통합 소프트웨어 - 모듈 오류 보고서
+생성 시간: 2025-07-10 11:10:09.836918
+================================================================================
+
+모듈: pd_app.network.websocket_client
+설명: WebSocket 클라이언트
+오류: No module named 'websockets'
+----------------------------------------
+모듈: pd_app.network.tcp_client
+설명: TCP 클라이언트
+오류: No module named 'websockets'
+----------------------------------------
+모듈: pd_app.ui.main_window
+설명: 메인 윈도우
+오류: No module named 'PyQt6'
+----------------------------------------
+모듈: pd_app.ui.ndi_widget
+설명: NDI 위젯
+오류: No module named 'PyQt6'
+----------------------------------------
+모듈: pd_app.ui.tally_widget
+설명: Tally 위젯
+오류: No module named 'PyQt6'
+----------------------------------------
+모듈: pd_app.ui.srt_widget
+설명: SRT 위젯
+오류: No module named 'PyQt6'
+----------------------------------------

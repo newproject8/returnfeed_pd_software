@@ -1,0 +1,24 @@
+# MediaMTX Configuration
+logLevel: info
+logDestinations: [stdout, file]
+logFile: mediamtx.log
+
+api: yes
+apiAddress: :9997
+
+# SRT server
+srt: yes
+srtAddress: :8890
+
+# Disable other protocols
+rtsp: no
+rtmp: no
+hls: no
+webrtc: no
+
+# Path configuration
+paths:
+  all:
+    source: publisher
+    srtReadTimeout: 10s
+    srtWriteTimeout: 10s
